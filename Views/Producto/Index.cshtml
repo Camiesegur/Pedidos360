@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Producto>
+
+@{
+    ViewData["Title"] = "Productos";
+    var currentSearch = ViewData["CurrentSearch"] as string;
+    var currentPage = (int)(ViewData["CurrentPage"] ?? 1);
+    var hasPrevious = (bool)(ViewData["HasPrevious"] ?? false);
+    var hasNext = (bool)(ViewData["HasNext"] ?? false);
+}
+
+<h1>Productos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nuevo Producto</a>
+</p>
+
+<form asp-action="Index" method="get" class="mb-3">
+    <input type="text"
+           name="search"
+           class="form-control"
+           placeholder="Buscar por nombre"
+           value="@currentSearch" />
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Impuesto (%)</th>
+            <th>Stock</th>
+            <th>Activo</th>
+            <th>Imagen</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Categoria?.Nombre</td>
+                <td>@item.Precio.ToString("C")</td>
+                <td>@item.ImpuestoPorc</td>
+                <td>@item.Stock</td>
+                <td>@(item.Activo ? "Sí" : "No")</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImagenUrl))
+                    {
+                        <img src="@item.ImagenUrl" style="max-width:80px; max-height:80px;" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        @if (hasPrevious)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(currentPage - 1)"
+                   asp-route-search="@currentSearch">Anterior</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+        }
+
+        <li class="page-item active"><span class="page-link">@currentPage</span></li>
+
+        @if (hasNext)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-page="@(currentPage + 1)"
+                   asp-route-search="@currentSearch">Siguiente</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+        }
+    </ul>
+</nav>

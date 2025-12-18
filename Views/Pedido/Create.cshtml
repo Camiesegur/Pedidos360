@@ -1,0 +1,47 @@
+﻿@model Pedidos360.ViewModels.CrearPedidoViewModel
+
+@{
+    ViewData["Title"] = "Crear Pedido";
+}
+
+<h1>Crear Pedido</h1>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label>Cliente</label>
+        <select asp-for="ClienteId" asp-items="ViewBag.Clientes"></select>
+        <span asp-validation-for="ClienteId" class="text-danger"></span>
+    </div>
+
+    <h3>Líneas de pedido</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Lineas.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <select asp-for="Lineas[@i].ProductoId" asp-items="ViewBag.Productos"></select>
+                        <span asp-validation-for="Lineas[@i].ProductoId" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Lineas[@i].Cantidad" class="form-control" />
+                        <span asp-validation-for="Lineas[@i].Cantidad" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

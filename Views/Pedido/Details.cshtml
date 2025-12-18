@@ -1,0 +1,52 @@
+﻿@model Pedido
+
+@{
+    ViewData["Title"] = $"Pedido #{Model.Id}";
+}
+
+<h1>Pedido #@Model.Id</h1>
+
+<h3>Datos del Cliente</h3>
+<div>
+    <p><strong>Nombre:</strong> @Model.Cliente.Nombre</p>
+    <p><strong>Cédula:</strong> @Model.Cliente.Cedula</p>
+    <p><strong>Correo:</strong> @Model.Cliente.Correo</p>
+    <p><strong>Teléfono:</strong> @Model.Cliente.Telefono</p>
+    <p><strong>Dirección:</strong> @Model.Cliente.Direccion</p>
+</div>
+
+<h3>Detalle del Pedido</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Impuesto %</th>
+            <th>Total Línea</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model.Detalles)
+        {
+            <tr>
+                <td>@d.Producto?.Nombre</td>
+                <td>@d.Cantidad</td>
+                <td>@d.PrecioUnit.ToString("C")</td>
+                <td>@d.ImpuestoPorc</td>
+                <td>@d.TotalLinea.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Totales</h3>
+<div>
+    <p><strong>Subtotal:</strong> @Model.Subtotal.ToString("C")</p>
+    <p><strong>Impuestos:</strong> @Model.Impuestos.ToString("C")</p>
+    <p><strong>Total:</strong> @Model.Total.ToString("C")</p>
+</div>
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+</p>

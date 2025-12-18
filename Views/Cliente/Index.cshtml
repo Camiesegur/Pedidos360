@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Cliente>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<h1>Clientes</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nuevo Cliente</a>
+</p>
+
+<form asp-action="Index" method="get" class="mb-3">
+    <input type="text"
+           name="search"
+           class="form-control"
+           placeholder="Buscar por nombre"
+           value="@Context.Request.Query["search"]" />
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cédula</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Cedula</td>
+                <td>@item.Correo</td>
+                <td>@item.Telefono</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

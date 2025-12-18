@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<h1>Pedidos360</h1>
+<p class="text-muted">Sistema de gestión de productos, clientes y pedidos.</p>
+
+<hr />
+
+<h3>Resumen</h3>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Productos</h5>
+                <p class="card-text">@ViewData["TotalProductos"] registrados</p>
+                <a asp-controller="Producto" asp-action="Index" class="btn btn-light">Ver productos</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Clientes</h5>
+                <p class="card-text">@ViewData["TotalClientes"] registrados</p>
+                <a asp-controller="Cliente" asp-action="Index" class="btn btn-light">Ver clientes</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Pedidos</h5>
+                <p class="card-text">@ViewData["TotalPedidos"] creados</p>
+                <a asp-controller="Pedido" asp-action="Index" class="btn btn-light">Ver pedidos</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h3>Accesos Rápidos</h3>
+
+<ul>
+    <li><a asp-controller="Producto" asp-action="Create">Crear nuevo producto</a></li>
+    <li><a asp-controller="Cliente" asp-action="Create">Registrar nuevo cliente</a></li>
+    <li><a asp-controller="Pedido" asp-action="Create">Generar nuevo pedido</a></li>
+</ul>

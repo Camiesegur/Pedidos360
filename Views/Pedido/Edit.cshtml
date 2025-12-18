@@ -1,0 +1,35 @@
+﻿@model Pedidos360.ViewModels.EditarPedidoViewModel
+
+@{
+    ViewData["Title"] = "Editar Pedido";
+}
+
+<h1>Editar Pedido #@Model.Id</h1>
+<hr />
+
+<div class="mb-3">
+    <h4>Información del Pedido</h4>
+    <p><strong>Cliente:</strong> @Model.ClienteNombre</p>
+    <p><strong>Fecha:</strong> @Model.Fecha.ToString("dd/MM/yyyy HH:mm")</p>
+    <p><strong>Subtotal:</strong> @Model.Subtotal.ToString("C")</p>
+    <p><strong>Impuestos:</strong> @Model.Impuestos.ToString("C")</p>
+    <p><strong>Total:</strong> @Model.Total.ToString("C")</p>
+</div>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Estado"></label>
+        <input asp-for="Estado" class="form-control" />
+        <span asp-validation-for="Estado" class="text-danger"></span>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
