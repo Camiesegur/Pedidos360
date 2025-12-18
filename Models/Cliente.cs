@@ -21,6 +21,6 @@ namespace Pedidos360.Models
         [StringLength(250)]
         public string Direccion { get; set; }
 
-        public ICollection<Pedido> Pedidos { get; set; }
+        public ICollection<Pedido>? Pedidos { get; set; }
     }
 }

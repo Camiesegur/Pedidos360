@@ -11,7 +11,7 @@ namespace Pedidos360.Models
 
         [Required]
         public int CategoriaId { get; set; }
-        public Categoria Categoria { get; set; }
+        public Categoria? Categoria { get; set; }
 
         [Range(0.01, double.MaxValue)]
         public decimal Precio { get; set; }
@@ -23,7 +23,7 @@ namespace Pedidos360.Models
         public int Stock { get; set; }
 
         [Url]
-        public string ImagenUrl { get; set; }
+        public string? ImagenUrl { get; set; }
 
         public bool Activo { get; set; } = true;
     }
